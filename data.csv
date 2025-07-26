@@ -1,0 +1,6 @@
+ Name , Age , Email , Score 
+Alice,25,alice@example.com,85.5
+Bob,30,bob@example.com,92.0
+Charlie,35,charlie@example.com,
+Diana,28,,88.5
+,22,eve@example.com,77.0
