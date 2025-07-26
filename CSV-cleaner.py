@@ -1,4 +1,6 @@
 import pandas as pd
+import warnings
+warnings.filterwarnings("ignore", category=FutureWarning)
 
 # Load CSV
 df = pd.read_csv('data.csv')
@@ -9,10 +11,20 @@ df.columns = [col.strip().lower().replace(" ", "_") for col in df.columns]
 # Drop rows with missing values
 df.dropna(inplace=True)
 
-# Basic summary stats
-summary = df.describe(include='all')
+# Get summary and transpose it
+summary = df.describe(include='all').T
 
-# Save summary to CSV
-summary.to_csv('summary_report.csv')
+# Format numeric values to 2 decimal places
+summary = summary.round(2)
 
-print("✅ Your CSV is cleaned & summarized.")
+# Fill empty cells with "-"
+summary.fillna("-", inplace=True)
+
+# Optional: reset index and rename for cleaner CSV
+summary.reset_index(inplace=True)
+summary.rename(columns={'index': 'Column'}, inplace=True)
+
+# Save to CSV
+summary.to_csv('summary_report.csv', index=False)
+
+print("✅ Clean, readable summary report saved as 'summary_report.csv'")
